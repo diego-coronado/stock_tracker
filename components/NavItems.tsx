@@ -11,7 +11,7 @@ const NavItems = () => {
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/";
-    return pathname.startsWith(path);
+    return pathname === path || pathname.startsWith(path + "/");
   };
 
   return (
@@ -23,7 +23,9 @@ const NavItems = () => {
             className={`hover:text-yellow-500 transition-colors ${
               isActive(href) ? "text-gray-100" : ""
             }`}
-          >{label}</Link>
+          >
+            {label}
+          </Link>
         </li>
       ))}
     </ul>
