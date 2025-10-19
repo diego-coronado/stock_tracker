@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
+import { Controller } from "react-hook-form";
 import countryList from "react-select-country-list";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Control, Controller, FieldError } from "react-hook-form";
 
 import {
   Popover,
@@ -22,14 +21,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
-type CountrySelectProps = {
-  name: string;
-  label: string;
-  control: Control<any>;
-  error?: FieldError;
-  required?: boolean;
-};
 
 const CountrySelect = ({
   value,
