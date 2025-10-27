@@ -3,16 +3,16 @@ import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 declare global {
-  var mongooseCaache: {
+  var mongooseCache: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
   };
 }
 
-let cached = global.mongooseCaache;
+let cached = global.mongooseCache;
 
 if (!cached) {
-  cached = global.mongooseCaache = { conn: null, promise: null };
+  cached = global.mongooseCache = { conn: null, promise: null };
 }
 
 export const connectToDatabase = async () => {
@@ -31,7 +31,11 @@ export const connectToDatabase = async () => {
     throw err;
   }
 
-  console.log(`Connected to database ${process.env.NODE_ENV} - ${MONGODB_URI}`);
+  const dbName = cached.conn?.connection?.name || "unknown";
+  const host = cached.conn?.connection?.host || "unknown";
+  console.log(
+    `Connected to database [env=${process.env.NODE_ENV}, db="${dbName}", host="${host}"]`
+  );
 
   return cached.conn;
 };
