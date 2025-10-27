@@ -1,9 +1,13 @@
 "use client";
 
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import InputField from "@/components/forms/InputField";
 import FooterLink from "@/components/forms/FooterLink";
+import { signInWithEmail } from "@/lib/actions/auth.actions";
 
 const SignIn = () => {
   const {
@@ -17,12 +21,17 @@ const SignIn = () => {
     },
     mode: "onBlur",
   });
+  const router = useRouter()
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      console.log(data);
+      const result = await signInWithEmail(data);
+      if (result.success) router.push("/");
     } catch (e) {
       console.error(e);
+      toast.error("Sign in failed", {
+        description: e instanceof Error ? e.message : "Failed to sign in.",
+      });
     }
   };
 
