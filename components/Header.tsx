@@ -3,7 +3,7 @@ import Link from "next/link";
 import NavItems from "./NavItems";
 import UserDropdown from "./UserDropdown";
 
-const Header = () => {
+const Header = ({ user }: { user: User }) => {
   return (
     <h5 className="sticky top-0 header">
       <div className="container header-wrapper">
@@ -20,7 +20,7 @@ const Header = () => {
           <NavItems />
         </nav>
 
-        <UserDropdown />
+        <UserDropdown user={user} />
       </div>
     </h5>
   );
